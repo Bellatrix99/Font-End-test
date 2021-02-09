@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .qr-box {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="qr-box">
+        <img src="./src/image/bg.png" alt="背景图" id="bg">
+        <img src="./src/image/qr.png" alt="二维码图片" id="qr">
+    </div>
+    <img src="" alt="最终合成所生成的图片" crossorigin="anonymous" id="compose"/>
+</div>
+</body>
+<script>
+
+    const startDrawing = () => {
+        const bgImage = document.querySelector('#bg');
+        const qrImage = document.querySelector('#qr');
+        const composeImage = document.querySelector('#compose');
+        const canvas = document.createElement('canvas');
+        if (!(canvas instanceof HTMLCanvasElement)) return;
+        canvas.width = 650;
+        canvas.height = 1000;
+        const ctx = canvas.getContext('2d');
+        if (!(ctx instanceof CanvasRenderingContext2D)) return;
+
+
+        const generateQRImage = () => {
+            const imgPosArr = [
+                {
+                    x: 0,
+                    y: 0,
+                },
+                {
+                    x: 195,
+                    y: 210,
+                }
+            ];
+            [bgImage, qrImage].forEach(($el, index) => {
+                ctx.drawImage($el, imgPosArr[index].x, imgPosArr[index].y);
+            })
+            ctx.font = "48px serif";
+            ctx.fillStyle = 'red';
+            ctx.fillText('获取的用户数据', 100, 100);
+            composeImage.src = canvas.toDataURL('image/png')
+        }
+
+        const prepareData = () => {
+            const promiseArr = [bgImage, qrImage].map(($el, index) => {
+                return new Promise(resolve => {
+                    $el.addEventListener('load', () => {
+                        resolve();
+                    });
+                })
+            });
+
+            Promise.all(promiseArr).then(() => {
+                generateQRImage();
+            })
+
+        }
+
+
+        prepareData();
+
+    }
+
+    startDrawing();
+</script>
+</html>
