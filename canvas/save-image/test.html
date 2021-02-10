@@ -24,8 +24,7 @@
       }).then(canvas => {
         // canvas为转换后的Canvas对象
         let oImg = new Image();
-        oImg.setAttribute("crossOrigin",'Anonymous')
-        oImg.src = canvas.toDataURL() + '?time=' + new Date();  // 导出图片
+        oImg.src = canvas.toDataURL();  // 导出图片
         // oImg.setAttribute("crossOrigin",'Anonymous');
         document.body.appendChild(oImg);  // 将生成的图片添加到body
       });
