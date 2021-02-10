@@ -1,0 +1,33 @@
+<head>
+    <style>
+        #test{ width: 650; height: 1000px; text-align: center; background: 
+          url("./src/image/bg.png") no-repeat center;}
+        #test img{ width: 276px; margin-top: 217px; margin-left: 6px;}
+        #test ul>li{ margin: 0; padding-top: 10px; font-size: 20px; color: #fff;}
+    </style>
+</head>
+<body>
+    <div id="test">
+        <img src="./src/image/Inkedqr_LI.jpg" alt="二维码图片" id="qr">
+        <ul>
+            <li>这段话</li>
+            <li>是从后台得到的段落文字</li>
+        </ul>
+    </div>
+
+    <script src="./src/scripts/html2canvas.js"></script>
+    <script>
+      new html2canvas(document.getElementById('test'),{
+        backgroundColor: "transparent",
+        allowTaint: true,
+        useCORS: true
+      }).then(canvas => {
+        // canvas为转换后的Canvas对象
+        let oImg = new Image();
+        oImg.setAttribute("crossOrigin",'Anonymous')
+        oImg.src = canvas.toDataURL() + '?time=' + new Date();  // 导出图片
+        // oImg.setAttribute("crossOrigin",'Anonymous');
+        document.body.appendChild(oImg);  // 将生成的图片添加到body
+      });
+    </script>
+</body>
