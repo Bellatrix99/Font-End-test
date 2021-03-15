@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <style>
+    .message-ball {
+      font-size: 20px;
+      line-height: 200px;
+      text-align: center;
+    }
+
+    .circle {
+      transition-property: width, height, margin-left, margin-top;
+      transition-duration: 2s;
+      position: fixed;
+      transform: translateX(100%) translateY(20%);
+      background-color: rgb(224, 80, 80);
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <button onclick="go()" type="button" class="btn btn-light">Click me</button>
+
+  <script>
+
+    function go() {
+      showCircle(150, 150, 100, div => {
+        div.classList.add('message-ball');
+        div.append("Remember to drink");
+      });
+    }
+
+    function showCircle(cx, cy, radius, callback) {
+      let div = document.createElement('div');
+      div.style.width = 0;
+      div.style.height = 0;
+      div.style.left = cx + 'px';
+      div.style.top = cy + 'px';
+      div.className = 'circle';
+      document.body.append(div);
+
+      setTimeout(() => {
+        div.style.width = radius * 2 + 'px';
+        div.style.height = radius * 2 + 'px';
+
+        div.addEventListener('transitionend', function handler() {
+          div.removeEventListener('transitionend', handler);
+          callback(div);
+        });
+      }, 0);
+    }
+  </script>
+
+
+</body>
+
+</html>

@@ -29,7 +29,7 @@
         oImg.src = canvas.toDataURL();  // 导出图片
         // oImg.src = canvas.toDataURL() + '?time=' + new Date();  // 导出图片
         // oImg.setAttribute("crossOrigin",'Anonymous');
-        document.body.appendChild(oImg);  // 将生成的图片添加到body
+        document.body.append(oImg);  // 将生成的图片添加到body
         let old = document.getElementById('test');
         //old.remove();
         old.style.display = "none";
