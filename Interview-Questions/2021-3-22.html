@@ -1,0 +1,494 @@
+<body>
+    <button id="myBtn">
+        123
+    </button>
+</body>
+
+<script>
+
+    //=== deepClone ==========================================
+    // function deepClone(object) {
+    //     let newObject = {};
+    //     for (const key in object) {
+    //         if (typeof object[key] === 'object' && object[key] !== null) {
+    //             newObject[key] = deepClone(object[key]);
+    //         } else {
+    //             newObject[key] = object[key];
+    //         }
+    //     }
+    //     return newObject;
+    // }
+
+    // var personalDetail = {
+    //     name: 'Nishant',
+    //     address: {
+    //         location: 'xyz',
+    //         zip: '123456',
+    //         phoneNumber: {
+    //             homePhone: 8797912345,
+    //             workPhone: 1234509876
+    //         }
+    //     }
+    // }
+    // var newObject = deepClone(personalDetail);
+
+    // console.log(newObject);
+    // console.log(personalDetail);
+    // console.log(newObject == personalDetail);   // false
+
+
+
+    //=== detect undefined ==========================================
+    // var person = {
+    //     name: 'Bellatrix',
+    //     age:24
+    // }
+
+    // if (typeof person.salary === 'undefined') {
+    //     console.log("salary is undefined here because we haven't declared");
+    // }
+
+    // console.log(person.salary);
+
+
+
+    //=== not copy deep ==========================================
+    // function Clone(object) {
+    //     var newObject = {};
+    //     for (const key in object) {
+    //         newObject[key] = object[key];
+    //     }
+    //     return newObject;
+    // }
+
+
+
+    //=== check whether a key exist ==========================================
+    // var person = {
+    //     name: 'Bellatrix',
+    //     age: 24
+    // }
+
+    // console.log('name' in person);  // true
+    // console.log('age' in person);   // true
+
+    // console.log('toString' in person);  // true
+
+    // console.log(person.hasOwnProperty('toString')); // false
+    // console.log(person.hasOwnProperty('name')); // true 
+    // console.log(person.hasOwnProperty('age')); //true
+
+
+
+    //=== NaN ==========================================
+    // console.log(Math.sqrt(-5));
+    // console.log(Math.log(-1));
+    // console.log(parseFloat("foo"));
+
+    // console.log(NaN !== NaN);   // true
+    // console.log(NaN < 2);
+    // console.log(NaN > 2);
+    // console.log(NaN === 2);
+
+
+
+    //=== ES5 ==========================================
+    // var arr = [10, 32, 65, 2];
+    // var i;
+    // for (i = 0; i < arr.length; i++) {
+    //     setTimeout(function () {
+    //         console.log('The index of this number is: ' + i);
+    //     }, 3000);
+    // }
+
+    //== Fix ==========================================
+    // var arr = [10, 32, 65, 2];
+    // for (var i = 0; i < arr.length; i++) {
+    //     setTimeout(function (j) {
+    //         return function () {
+    //             console.log('The index of this number is: ' + j);
+    //         };
+    //     }(i), 3000);
+    // }
+
+    //== else ==========================================
+    // var arr = [10, 32, 65, 2];
+    // arr.forEach(function (elm, i) {
+    //     setTimeout(function () {
+    //         console.log('The index of this number is: ' + i);
+    //     }, 3000);
+    // })
+
+
+
+    //=== check value of array ==========================================
+    // function check(value) {
+    //     if ("value is an array") {
+    //         // Then perform some operation
+    //     }else {
+    //         // otherwise
+    //     }
+    // }
+
+
+    //== Check Array ==========================================
+    // Method 1:
+    // function isArray(value) {
+    //     return Object.prototype.toString.call(value) === '[object Array]';
+    // }
+    // var a = [];
+    // console.log(isArray(a));
+
+    // Method 2:
+    // function isArray(value) {
+    //     return typeof value.sort === 'function';
+    // }// check value object have sort method of type function
+
+    // Not a best way
+    // var bar = {
+    //     sort: function() {
+    //         // Some code
+    //     }
+    // }
+
+    // Method 3:
+    // function M(value) {
+    //     if (typeof Array.isArray === 'function') {
+    //         return Array.isArray(value);
+    //     }else{
+    //         return Object.prototype.toString.call(value) === '[object Array]';
+    //     }
+    // }
+
+    // Method 4:
+    // function isArray(value) {
+    //     return value.constructor.name === 'Array';
+    // }
+
+    // Method 5:
+    // function isArray(value) {
+    //     return value instanceof Array;
+    // }
+
+
+
+    //=== detect reference values of type ==========================================
+    // console.log(typeof []);           // object
+    // console.log(typeof []);           // object
+    // console.log(typeof new Array());  // object
+    // console.log(typeof null);         // object 
+    // console.log(typeof new RegExp()); // object
+    // console.log(typeof new Date());   // object
+
+
+    // Detecting an array
+    // if (value instanceof Array) {
+    //     console.log("value is type of array");
+    // }
+
+    //Employee constructor function
+    // function Employee(name) {
+    //     this.name = name;
+    // }
+
+    // var emp1 = new Employee('John');
+
+    // console.log(emp1 instanceof Employee);  // true
+    // console.log(emp1 instanceof Object);    // true
+
+
+
+    //=== Object.create ==================================
+    // var employee = {
+    //     name: 'Bellatrix',
+    //     displayName: function () {
+    //         console.log(this.name);
+    //     }
+    // };
+
+    // var emp1 = Object.create(employee);
+    // emp1.displayName();  // output "Bellatrix"
+
+    // emp1.displayName = function () {
+    //     console.log('xyz-Anonymous');
+    // }
+    // employee.displayName();
+    // emp1.displayName();
+
+    // var emp1 = Object.create(employee, {
+    //     name: {
+    //         value: "John"
+    //     }
+    // });
+
+    // emp1.displayName();     // John
+    // employee.displayName(); // Bellatrix
+
+
+
+    //=== constructor ======================================
+    // function Person(name, age, salary) {
+    //     this.name = name;
+    //     this.age = age;
+    //     this.salary = salary;
+    //     this.incrementSalary = function (byValue) {
+    //         this.salary = this.salary + byValue;
+    //     };
+    // }
+
+    // function Employee(company) {
+    //     this.company = company;
+    // }
+
+    // Employee.prototype = new Person("Bellatrix", 24, 5000);
+
+    // var emp1 = new Employee("Google");
+
+    // console.log(emp1 instanceof Person);
+    // console.log(emp1 instanceof Employee);
+    // console.log(emp1.company);
+
+    // function Person(name){
+    //     this.name = name || "Nishant";
+    // }
+
+    // var obj = {};
+
+    // Person.call(obj);
+
+    // console.log(obj); 
+
+
+
+    //=== prevent modification
+
+    // 1. Prevent extensions
+    // var employee = {
+    //     name: 'Bellatrix'
+    // };
+
+    // Object.preventExtensions(employee);
+
+    // employee.name = "John"; // fine
+    // employee.age = 24;  // fail
+    // console.log(employee);
+
+    // 2. Seal 
+    // var employee = {
+    //     name: "Bellatrix"
+    // };
+    // Object.seal(employee);
+    // console.log(Object.isExtensible(employee)); // false
+    // console.log(Object.isSealed(employee)); // true
+
+    // delete employee.name;   // fails
+
+    // employee.age = 30;  // fails
+    // console.log(employee);
+
+    // 3. Freeze
+    // "use strict"
+    // var employee = {
+    //     name: "Bellatrix"
+    // };
+
+    // Object.freeze(employee);
+    // Object.seal(employee);
+
+    // console.log(Object.isExtensible(employee)); // false
+    // console.log(Object.isSealed(employee)); // true
+    // console.log(Object.isFrozen(employee)); // true
+
+    // employee.name = "xyz";  // fails
+    // employee.age = 30;  // fails
+    // delete employee.name;   // fails
+
+
+
+    //=== console.log ======================================
+    // function appLog() {
+    //     var args = Array.prototype.slice.call(arguments);
+    //     args.unshift('Your app name');
+    //     console.log.apply(console, args);
+    // }
+
+    // appLog("Some error message");
+
+
+    //=== Singleton Pattern ================================
+    // const getTarget = (() => {
+    //     const target = {};
+
+    //     return function () {
+    //         return target;
+    //     };
+    // })();
+
+    // const a = getTarget();
+    // const b = getTarget();
+    // console.log(a === b);
+
+
+
+    //=== String ============================================
+    // var ltrlStr = "Hi I am string literal";
+    // var objStr = new String("Hi I am string object");
+
+    // function isString(str) {
+    //     return typeof(str) == 'string' || str instanceof String;
+    // }
+
+    // console.log(isString(ltrlStr)); // true
+    // console.log(isString(objStr));  // true
+
+
+
+    //=== anonymous function ================================
+    // setTimeout(function() {
+    //     alert("Hello");
+    // },1000);
+
+    // EventListener
+    // btn.addEventListener('click', function () {
+    //     alert("button clicked");
+    // });
+
+    // calling function
+    // function processCallback(callback) {
+    //     if (typeof callback === 'function') {
+    //         callback();
+    //     }
+    // }
+
+    // processCallback(function() {
+    //     alert("Hi I'm anonymous callback function");
+    // });
+
+
+
+    //=== set a default parameter value =====================
+
+    // Method 1:
+    // function sentEmail(configuration, provider) {
+    //     provider = typeof provider !== 'undefined' ? provider : 'Gmail'
+    //     // Your code logic
+    //     ;
+    // }
+    // sentEmail({
+    //     from: 'xyz@gmail.com',
+    //     subject: 'Test Email'
+    // });
+
+    // sentEmail({
+    //     from: 'xyz@gmail.com',
+    //     subject: 'Test Email'
+    // }, 'Yahoo Mail');
+
+    // Method 2:
+    // function sentEmail(configuration, provider) {
+    //     provider = provider || 'Gmail'
+    //     // Your code logic
+    //     ;
+    // }
+
+    // sentEmail({
+    //     from: 'xyz@gmail.com',
+    //     subject: 'Test Email'
+    // });
+
+    // sentEmail({
+    //     from: 'xyz@gmail.com',
+    //     subject: 'Test Email'
+    // }, 'Yahoo Mail');
+
+    // Method 3:
+    // function sentEmail(configuration, provider = "Gmail") {
+    //     console.log(`Provider: ${provider}`);
+    // }
+
+    // sentEmail({
+    //     from: 'xyz@gmail.com',
+    //     subject: 'Test Email'
+    // });
+
+    // sentEmail({
+    //     from: 'xyz@gmail.com',
+    //     subject: 'Test Email'
+    // }, 'Yahoo Mail');
+
+
+
+    //=== merge two JS Object ================================
+    var person = {
+        name: 'John',
+        age: 24,
+    }
+    var address = {
+        addressLine1: 'Some Location x',
+        addressLine2: 'Some Location y',
+        city: 'NewYork'
+    }
+
+    // Method 1: assign
+    // const merge = (toObj, fromObj) => Object.assign(toObj, fromObj);
+    // console.log(merge(person,address));
+
+    // Method 2: Without using built-in function
+    function merge(toObj, fromObj) {
+        if (typeof (toObj) === 'object' && typeof (fromObj) === 'object') {
+            for (const pro in fromObj) {
+                if (fromObj.hasOwnProperty(pro)) {
+                    toObj[pro] = fromObj[pro];
+                }
+            }
+        } else {
+            throw "Merge function can apply only on object";
+        }
+    }
+    merge(person, address)
+    console.log(Object.keys(person));
+
+
+
+    //=== non-enumerable ====================================
+    // var person = {
+    //     name: 'Bellatrix',
+    // };
+    // person.salary = '10000$';
+    // person['country'] = 'USA';
+
+    // console.log(Object.keys(person));   // ['name', 'salary', country]
+
+    // defineProperty
+    // var person = {
+    //     name: 'John'
+    // };
+    // person.salary = '10000$';
+    // person['country'] = 'USA';
+
+    // Object.defineProperty(person, 'phoneNo', {
+    //     value: '88888888',
+    //     enumerable: false
+    // })
+
+    // console.log(Object.keys(person));   // ['name', 'salary', 'country']
+    // console.log(person.phoneNo);
+    // person.phoneNo = '7777777';
+    // console.log(person.phoneNo);
+
+
+
+    //=== Function binding =================================
+    var clickHandler = {
+        message: 'click event handler',
+        handleClick: function (event) {
+            console.log(this.message);
+        }
+    };
+    clickHandler.handleClick();
+
+    var btn = document.getElementById('myBtn');
+    // Add click event to btn
+    btn.addEventListener('click', clickHandler.handleClick.bind(clickHandler));
+</script>
+

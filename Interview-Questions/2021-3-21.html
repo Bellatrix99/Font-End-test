@@ -1,0 +1,423 @@
+<script>
+    //=== 闭包 
+    // var globalVar = "abc";
+
+    // (function outerFunction(outerArg) {
+    //     var outerFuncVar = 'x';
+
+    //     (function innerFunction(innerArg) {
+    //         var innerFuncVar = 'y';
+    //         console.log(
+    //             "outerArg = " + outerArg + "\n" +
+    //             "outerFuncVar = " + outerFuncVar + "\n" +
+    //             "innerArg = " + innerArg + "\n" +
+    //             "innerFuncVar = " + innerFuncVar + "\n" +
+    //             "globalVar = " + globalVar);
+    //     })(5);
+    // })(7);
+
+
+    //=== 柯里化
+    // function mul(x) {
+    //     return function (y) {
+    //         return function (z) {
+    //             return x * y * z;
+    //         };
+    //     };
+    // };
+
+    // console.log(mul(2)(3)(4));
+
+
+    //=== 判断对象是否是数组
+    // typeof 不能分别 array和null
+
+    // 1. instanceof
+    // var arr = [1,2,3,1];
+    // console.log(arr instanceof Array);
+    // var fun = function(){};
+    // console.log(fun instanceof Function);
+
+
+    // 2. Object.prototype.toString
+    // Object.prototype.toString.call([]) === '[object Array]';     // true
+
+    // Object.prototype.toString.call(function(){}) === '[object Function]';    //true
+
+
+    // 3. __proto__
+    // [].__proto__ === Array.prototype;   // true
+
+    // var fun = function(){};
+    // fun.__proto__ === Function.prototype;   // true 
+
+
+    // 4. Array.isArray()
+    // Array.isArray([]);  // true
+
+
+
+    //=== delete 
+
+    // 1
+    // var output = (function (x) {
+    //     delete x;
+    //     return x;
+    // })(0);
+
+    // console.log(output);    // 0
+
+    // 2
+    // var x = 1;
+    // var output = (function () {
+    //     delete x;
+    //     return x;
+    // })();
+
+    // console.log(output);    // 1
+
+    // 3
+    // var x = { foo: 1 };
+    // var output = (function () {
+    //     delete x.foo;
+    //     return x.foo;
+    // })();
+
+    // console.log(output);    // undefined
+
+
+
+    //=== __proto__ delete
+    // var Employee = {
+    //     company: 'xyz'
+    // }
+
+    // var emp1 = Object.create(Employee);
+    // delete emp1.company;
+    // // delete Employee.company;
+    // console.log(emp1.company);  // xyz 这里用到的是原型的company
+
+
+
+    //=== delete Array Content
+    // var trees = ['redwood',"bay","cedar","oak","maple"];
+    // delete trees[3];
+    // console.log(trees[3]);  // undefined
+
+
+    //=== delete Array Length
+    // var trees = ["xyz","xxxx","test","ryan","apple"];
+    // delete trees[3];
+    // console.log(trees.length);  // 5
+
+
+    //== '+'
+    // var bar = true;
+    // console.log(bar + 0);
+    // console.log(bar + "xyz");
+    // console.log(bar + true);
+    // console.log(bar + false);
+
+    //=== '='
+    // var z = 1, y = z = typeof y;
+    // console.log(y);     // undefined
+
+    // var z;
+    // z = 1;
+    // var y;
+    // z = typeof y;
+    // y = z;
+    // console.log(y);      // undefined
+
+
+    //=== var xxx = function xxx(){}
+    // var foo = function bar() {
+    //     return 12;
+    // };
+    // typeof bar();   // Reference Error
+
+    // Sample 1
+    // var bar = function () {
+    //     return 12;
+    // };
+    // console.log(typeof bar());   // number (12)
+
+    // Sample 2
+    // function bar() {
+    //     return 12;
+    // };
+    // console.log(typeof bar());  // number
+
+    // Sample 3
+    // var foo = function bar() {
+    //     // foo is visible here
+    //     // bar is visible here
+    //     console.log(typeof bar()); // Works here :)
+    // };
+    // foo is visible here
+    // bar is undefined here
+
+
+    //=== **function
+    // foo();  // Error
+    // var foo = function() {
+    //     console.log("Hi I am inside Foo");
+    // };
+
+
+    // bar();
+    // function bar() {
+    //     console.log("Hi I am inside Foo");
+    // };
+
+
+    //=== function 
+    // bar();
+    // (function abc() {console.log('something');})();
+    // function bar(){console.log('bar got called');};
+
+
+    //=== function hoist
+    // var foo = undefined;
+    // foo();
+    // foo = function foo() {
+    //     console.log(123);
+    // }
+
+
+    //=== Reg hoist
+    // var salary = "1000$";
+
+    // (function() {
+    //     console.log("Original salary was " + salary);
+
+    //     var salary = "5000$";
+
+    //     console.log("My New Salary " + salary);
+    // })();
+
+    // 等同于：
+    // var salary = "1000$";
+
+    // (function () {
+    //     var salary = undefined;
+    //     console.log("Original salary was " + salary);
+
+    //     salary = "5000$";
+
+    //     console.log("My New Salary " + salary);
+    // })();
+
+
+
+    //=== instanceof
+    // var dog = new Animal();
+    // dog instanceof Animal; // Output : true
+
+    // var name = new String("xyz");
+    // name instanceof String; // Output : true
+
+
+    //=== length of associative array
+    // var counterArray = {
+    //     A: 3,
+    //     B: 4
+    // };
+    // counterArray["C"] = 1;
+
+    // Method 1:
+    // console.log(Object.keys(counterArray).length);
+
+    // Method 2:
+    // function getLength(object) {
+    //     var count = 0;
+    //     for (const key in object) {
+    //         if (object.hasOwnProperty(key)) {
+    //             count++;
+    //         }
+    //     }
+    //     return count;
+    // }
+    // console.log(getLength(counterArray));
+
+    // Method 3:
+    // console.log(Object.getOwnPropertyNames(counterArray).length);
+
+    // Method 4:
+    // console.log(_.size({ one: 1, two: 2, three: 3 }));
+
+
+    //=== Function
+    // function helloWorld(name) {
+    //     return "hello world, " + name;
+    // }
+
+    // helloWorld("JS Geeks"); // "hello world JS Geeks"
+
+    //=== Methods
+    // var obj = {
+    //     helloWorld : function() {
+    //         return "hello world, " + this.name;
+    //     },
+    //     name: "John Carter"
+    // }
+    // obj.helloWorld();   // "hello world John Carter"
+
+    // var obj2 = {
+    //     helloWorld : obj.helloWorld,
+    //     name: 'John Doe'
+    // }
+    // obj2.helloWorld();  // "hello world John Doe"
+
+    //=== Constructors
+    // function Employee(name, age) {
+    //     this.name = name;
+    //     this.age = age;
+    // }
+
+    // var emp1 = new Employee('John Doe', 28);
+    // emp1.name;  // John Doe
+    // emp1.age;   // 28
+
+
+
+    //=== output
+    // function User(name) {
+    //     this.name = name || "JsGeeks";
+    // }
+
+    // var person = new User("xyz")["location"] = "USA";
+    // console.log(person);    // USA
+
+    // OR
+    // function User(name) {
+    //     this.name = name || "JsGeeks";
+    // }
+
+    // var person;
+    // var foo = new User("xyz");
+    // foo["location"] = "USA";
+    // console.log(foo);
+
+
+
+    //=== IIFE
+    // (function() {
+    //     // Do some stuff;
+    // })();
+
+    //=== arrow function
+    // const myFunc = arg => {
+    //     console.log("hello", arg);
+    // }
+    // myFunc(123);
+
+    //=== Methods 1
+    // var obj1 = {
+    //     attribute: "xyz",
+    //     methods: function () {
+    //         console.log(this.attribute);
+    //     },
+    // };
+
+    // obj1.methods();
+
+    //=== Methods 2
+    // class MyAwesomeClass {
+    //     myMethod() {
+    //         console.log("hi there");
+    //     }
+    // }
+
+    // const obj1 = new MyAwesomeClass();
+    // obj1.myMethod();
+
+
+    //=== Methods 3
+    // var obj1 = {
+    //     prop1: "buddy"
+    // };
+    // var myFunc = function () {
+    //     console.log("Hi there", this);
+    // };
+
+    // myFunc();
+
+    // obj1.myMethod = myFunc;
+    // obj1.myMethod();
+
+
+    //=== anonymous IIFE
+    // (function() {
+    //     console.log("Hi, I'm IIFE!");
+    // })();   // "Hi I'm IIFE!"
+
+
+    //=== Non-anonymous IIFE
+    // (function myIIFEFunc() {
+    //     console.log("Hi,I'm IIFE!");
+    // })();
+
+    //=== some parameters
+    // (function myIIFEFunc(param1) {
+    //     console.log("Hi,I'm IIFE, "+ param1);
+    // })("Yuri");
+
+    //=== return a value IIFE
+    // var result = (function myIIFEFunc(param1) {
+    //     console.log("Hi,I'm IIFE, " + param1);
+    //     return 1;
+    // })("Yuri");
+    // console.log(result);    // 1
+
+
+
+    //=== create objects
+
+    // Method 1:Function based
+    // function Employee(fName, lName, age, salary) {
+    //     this.firstName = fName;
+    //     this.lastName = lName;
+    //     this.age = age;
+    //     this.salary = salary;
+    // }
+
+    // var employee1 = new Employee('John', 'Moto', 24, '5000$');
+    // console.log(employee1);
+    // var employee2 = new Employee('Ryan', 'Jor', 26, '3000$');
+    // var employee3 = new Employee('Andre', 'Salt', 25, '4000$');
+    // console.log(Employee.name);
+
+
+    // Method 2:Object Literal
+    var employee = {
+        name: 'Nishant',
+        salary: 123456,
+        getName: function () {
+            return this.name;
+        }
+    }
+
+    // OR 
+    var employee = {
+        name: 'Bellatrix',
+        salary: 123456,
+        address: {
+            addressLine1: 'BITS Pilani',
+            addressLine2: 'Vidya Vihar',
+            phoneNumber: {
+                workPhone: 123123123,
+                homePhone: 123123123
+            }
+        }
+    }
+
+    // Method 3: From Object using new keyword
+    var employee = new Object();
+    employee.name = 'Bellatrix';
+    employee.getName = function() {
+        return this.name;
+    }
+    console.log(employee);
+    console.log(employee.getName());
+</script>
