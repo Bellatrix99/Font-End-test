@@ -1,3 +1,162 @@
 <script>
-    
+    // Remember that objects, including arrays
+    // are passed by reference while strings,
+    // booleans and numbers are passed by value.
+
+    // 1. What would be the output of following code?
+    // var strA = "hi there";
+    // var strB = strA;
+    // strB = 'Bye there!';
+    // console.log(strA);  // hi there
+
+    // 2.What would be the output of following code?
+    // var objA = { prop1: 42 };
+    // var objB = objA;
+    // console.log(objA === objB);
+    // objB.prop1 = 90;
+    // console.log(objA);  // prop1: 90
+
+    // 3.What would be the output of following code?
+    // var objA = { prop1: 42 };
+    // var objC = { prop1: 66 };
+    // var objB = objA;
+    // objB = objC;
+    // console.log(objB);  // prop1: 66
+    // console.log(objA);  // prop1: 42
+
+    // 4. What would be the output of following code?
+    // var arrA = [0, 1, 2, 3, 4, 5];
+    // var arrB = arrA;
+    // arrB[0] = 42;
+    // console.log(arrA);  // [42,1,2,3,4,5]
+
+    // 5. What would be the output of following code?
+    // var arrA = [0, 1, 2, 3, 4, 5];
+    // var arrB = arrA.slice();
+    // arrB[0] = 42;
+    // console.log(arrA)   // [0, 1, 2, 3, 4, 5]
+
+    // (function () {
+    //     var objA = Object.create({
+    //         foo: 'foo'
+    //     });
+    //     var objB = objA;
+    //     objB.foo = 'bar';
+
+    //     delete objA.foo;
+    //     console.log(objA.foo);
+    //     console.log(objB.foo);
+    // }());
+
+
+    // (function () {
+    //     var containers = [2, 0, false, "", '12', true];
+    //     var containers1 = containers.filter(Boolean);
+    //     console.log(containers1);
+    //     var containers2 = containers.filter(Number);
+    //     console.log(containers2);
+    //     var containers3 = containers.filter(String);
+    //     console.log(containers3);
+    //     var containers4 = containers.filter(Object);
+    //     console.log(containers4);
+    //     // (3)[2, '12', true]
+    //     // (3)[2, '12', true]
+    //     // (5)[2, 0, false, '12', true]
+    //     // (6)[2, 0, false, '', '12', true]
+    // })();
+
+    // var obj = {
+    //     message: "Hello",
+    //     innerMessage: !(function () {
+    //         console.log(this.message);
+    //     })()
+    // };
+
+    // console.log(obj.innerMessage);
+
+    // function myFunc() {
+    //     console.log(this.message);
+    // }
+    // function myFunc1() {
+    //     console.log('123');
+    // }
+    // var message = "Hi John";
+
+    // console.log(myFunc1());
+
+    // function Person(name, age) {
+    //     this.name = name || "John";
+    //     this.age = age || 24;
+    //     this.displayName = function () {
+    //         console.log(this.name);
+    //     }
+    // }
+
+    // Person.name = "John";
+    // Person.displayName = function () {
+    //     console.log(this.name);
+    // }
+
+    // var person1 = new Person('John');
+    // person1.displayName();
+    // Person.displayName();
+
+
+
+    // function passWordMngr() {
+    //     var password = '12345678';
+    //     this.userName = 'John';
+    //     return {
+    //         pwd: password
+    //     };
+    // }
+    // // Block End
+    // var userInfo = passWordMngr();
+    // console.log(userInfo.pwd);
+    // console.log(userName);
+
+
+
+    // var employeeId = 'aq123';
+
+    // function Employee() {
+    //     this.employeeId = 'bq1uy';
+    // }
+    // console.log(new Employee().employeeId);
+    // Employee.prototype.employeeId = 'kj182';
+    // Employee.prototype.JobId = '1BJKSJ';
+    // console.log(new Employee().JobId);
+    // console.log(new Employee().employeeId);
+
+
+
+    // function mul(x) {
+    //     return function (y) {
+    //         return [x * y, function (z) {
+    //             return x * y + z;
+    //         }];
+    //     }
+    // }
+
+    // console.log(mul(2)(3)[0]);
+    // console.log(mul(2)(3)[1](4));
+
+
+
+    function getName1() {
+        console.log(this.name);
+    }
+
+    Object.prototype.getName2 = () => {
+        console.log(Object.getPrototypeOf(this).name);
+    }
+
+    let personObj = {
+        name: "Tony",
+        print: getName1
+    }
+
+    personObj.print();
+    Object.prototype.name = "Steve";
+    personObj.getName2();
 </script>

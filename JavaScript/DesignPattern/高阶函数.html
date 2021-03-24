@@ -1,0 +1,139 @@
+<script>
+    // var appendDiv = function (callback) {
+    //     for (var i = 0; i < 100; i++) {
+    //         var div = document.createElement('div');
+    //         div.innerHTML = i;
+    //         document.body.appendChild(div);
+    //         if (typeof callback == 'function') {
+    //             callback(div);
+    //         }
+    //     }
+    // };
+
+    // appendDiv(function(node) {
+    //     node.style.display = 'none';
+    // });
+
+
+    // var isString = function (obj) {
+    //     return Object.prototype.toString.call(obj) === '[object String]';
+    // };
+
+    // var isArray = function (obj) {
+    //     return Object.prototype.toString.call(obj) === '[object Array]';
+    // };
+
+    // var isNumber = function (obj) {
+    //     return Object.prototype.toString.call(obj) === '[object Number]';
+    // };
+
+    // console.log(isArray([]));
+    // console.log(isString('a'));
+
+
+
+    // 避免多余代码，把字符串作为参数提前植入isType
+    // var isType = function (type) {
+    //     return function (obj) {
+    //         return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+    //     }
+    // };
+
+    // var isString = isType('String');
+    // var isArray = isType('Array');
+    // var isNumber = isType('Number');
+
+    // console.log(isArray([1, 2, 3]));
+    // console.log(isString("a"));
+    // console.log(isNumber(123));
+
+
+
+    // 循环语句，批量注册这些 isType 函数
+    // var Type = {};
+    // for(var i = 0, type; type = ['String', 'Array', 'Number'][i++];) {
+    //     (function(type) {
+    //         Type['is' + type] = function(obj) {
+    //             return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+    //         }
+    //     })(type)
+    // };
+
+    // console.log(Type.isArray([]));
+    // console.log(Type.isString("str"));
+
+
+
+    var throttle = function (fn, interval) {
+        var __self = fn,
+            timer,
+            firstTime = true;
+
+        return function () {
+            var args = arguments,
+                __me = this;
+            console.log(this);
+
+            if (firstTime) {
+                __self.apply(__me, args);
+                return firstTime = false;
+            }
+
+            if (timer) {
+                return false;
+            }
+
+            timer = setTimeout(function () {
+                clearTimeout(timer);
+                timer = null;
+                __self.apply(__me, args);
+            }, interval || 500);
+        };
+    };
+
+    window.onresize = throttle(function () {
+        console.log(1);
+    }, 500);
+
+
+
+    //=== 惰性加载函数 =============================================
+    var addEvent = function (elem, type, handler) {
+        if (window.addEventListener) {
+            return elem.addEventListener(type, handler, false);
+        }
+        if (window.attachEvent) {
+            return elem.attachEvent('on' + type, handler);
+        }
+    };
+
+    //=== 惰性加载 第二种方案 ======================================
+    var addEvent = (function () {
+        if (window.addEventListener) {
+            return function (elem, type, handler) {
+                elem.addEventListener(type, handler, false);
+            }
+        }
+        if (window.attachEvent) {
+            return function (elem, type, handler) {
+                elem.attachEvent('on' + type, handler);
+            }
+        }
+    })();
+
+
+    //=== 惰性加载 最终方案 ========================================
+    var addEvent = function (elem, type, handler) {
+        if (window.addEventListener) {
+            addEvent = function (elem, type, handler) {
+                elem.addEventListener(type, handler, false);
+            }
+        } else if (window.attachEvent) {
+            addEvent = function (elem, type, handler) {
+                elem.attachEvent('on' + type, handler);
+            }
+        }
+        addEvent(elem, type, handler);
+    };
+
+</script>
