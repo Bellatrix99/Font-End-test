@@ -1,0 +1,111 @@
+<script>
+    //=== 实现单例模式 1 ==============================
+    // var Singleton = function (name) {
+    //     this.name = name;
+    // }
+
+    // Singleton.instance = null;
+    // Singleton.prototype.getName = function () {
+    //     alert(this.name);
+    // }
+
+    // Singleton.getInstance = function (name) {
+    //     if (!this.instance) {
+    //         this.instance = new Singleton(name);
+    //     }
+    //     return this.instance;
+    // }
+
+    // var a = Singleton.getInstance('sven1');
+    // var b = Singleton.getInstance('sven2');
+
+    // alert(a === b);
+    // a.getName();
+
+
+
+    //=== 实现单例模式 2 =============================
+    // var Singleton = function (name) {
+    //     this.name = name;
+    // };
+
+    // Singleton.prototype.getName = function () {
+    //     alert(this.name);
+    // };
+
+    // Singleton.getInstance = (function () {
+    //     var instance = null;
+    //     return function (name) {
+    //         if (!instance) {
+    //             instance = new Singleton(name);
+    //         }
+    //         return instance;
+    //     }
+    // })();
+
+
+    // var a = Singleton.getInstance('Bellatrix');
+    // var b = Singleton.getInstance('hush');
+
+    // console.log(a === b);
+    // console.log(a.name);
+    // console.log(b.name);
+
+
+
+    //=== 透明的单例模式 =============================
+    // var CreateDiv = (function () {
+    //     var instance;
+
+    //     var CreateDiv = function (html) {
+    //         if (instance) {
+    //             return instance;
+    //         }
+    //         this.html = html;
+    //         this.init();
+    //         return instance = this;
+    //     };
+
+    //     CreateDiv.prototype.init = function () {
+    //         var div = document.createElement('div');
+    //         div.innerHTML = this.html;
+    //         document.body.appendChild(div);
+    //     };
+
+    //     return CreateDiv;
+    // })();
+
+    // var a = new CreateDiv('sven1');
+    // var b = new CreateDiv('sven2');
+
+    // alert(a === b);
+
+
+
+    //=== 用代理实现单例模式 =========================
+    var CreateDiv = function (html) {
+        this.html = html;
+        this.init();
+    };
+
+    CreateDiv.prototype.init = function () {
+        var div = document.createElement('div');
+        div.innerHTML = this.html;
+        document.body.appendChild(div);
+    };
+
+    var ProxySingletonCreateDiv = (function () {
+        var instance;
+        return function (html) {
+            if (!instance) {
+                instance = new CreateDiv(html);
+            }
+
+            return instance;
+        }
+    })();
+
+    var a = new ProxySingletonCreateDiv('sven1');
+    var b = new ProxySingletonCreateDiv('sven2');
+    console.log(a === b);
+</script>

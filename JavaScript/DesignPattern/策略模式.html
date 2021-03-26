@@ -1,0 +1,115 @@
+<!-- <script>
+    //=== 策略模式 1 传统面向对象方法
+    // var performanceS = function () { };
+
+    // performanceS.prototype.calculate = function (salary) {
+    //     return salary * 4;
+    // };
+
+    // var performanceA = function(){};
+
+    // performanceA.prototype.calculate = function(salary) {
+    //     return salary * 3;
+    // };
+
+    // var performanceB = function(){};
+
+    // performanceB.prototype.calculate = function(salary) {
+    //     return salary * 2;
+    // };
+
+
+    // var Bonus = function(){
+    //     this.salary = null;
+    //     this.strategy = null;
+    // };
+
+    // Bonus.prototype.setSalary = function(salary) {
+    //     this.salary = salary;
+    // };
+
+    // Bonus.prototype.setStrategy = function(strategy) {
+    //     this.strategy = strategy;
+    // };
+
+    // Bonus.prototype.getBonus = function() {
+    //     if (!this.strategy) {
+    //         throw new Error('未设置 strategy 属性');
+    //     }
+    //     return this.strategy.calculate(this.salary);
+    // };
+
+    // var bonus = new Bonus();
+
+    // bonus.setSalary(10000);
+    // bonus.setStrategy(new performanceS());
+
+    // console.log(bonus.getBonus());
+
+    // bonus.setStrategy(new performanceA());
+    // console.log(bonus.getBonus());
+
+
+
+    //=== JavaScript 版本的策略模式
+    // var strategies = {
+    //     "S": function (salary) {
+    //         return salary * 4;
+    //     },
+    //     "A": function (salary) {
+    //         return salary * 3;
+    //     },
+    //     "B": function (salary) {
+    //         return salary * 2;
+    //     }
+    // };
+
+    // var calculateBonus = function (level, salary) {
+    //     return strategies[level](salary);
+    // };
+
+    // console.log(calculateBonus('S', 10000));
+    // console.log(calculateBonus('A', 10000));
+
+</script> -->
+
+    <!--对于文本输入框对应多种校验规则 -->
+<html>
+    <body>
+        <form action="http://xxx.com/register" id="registerForm" method="POST">
+            请输入用户名： <input type="text" name="userName">
+            请输入密码：<input type="text" name="password">
+            请输入手机号码：<input type="text" name="phoneNumber">
+            <button>提交</button>
+        </form>
+    </body>
+</html>
+
+<script>
+    /********* 策略对象 *********/
+    var strategies = {
+        isNonEmpty: function(value, errorMsg) {
+            if (value == '') {
+                return errorMsg;
+            }
+        },
+        minLength: function(value, length, errorMsg) {
+            if (value.length < length) {
+                return errorMsg;
+            }
+        },
+        isMobile: function(value, errorMsg) {
+            if (!/(^1[3|5|8][0-9]{9}$)/.test(value)) {
+                return errorMsg;
+            }
+        }
+    };
+
+    
+    /********* Validator 类 *********/
+    var Validator = function() {
+        this.cache = [];
+    };
+
+    Validator.prototype.add = function(dom, rules)
+</script>
